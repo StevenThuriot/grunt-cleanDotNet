@@ -22,7 +22,7 @@ var walk = function (dir, filelist) {
         
         if (fs.statSync(fullname).isDirectory()) {
             filelist = walk(fullname, filelist);
-        } else if (fullname.match(/\.csproj$|\.vbproj$/gi)) {
+        } else if (fullname.match(/\.csproj$|\.vbproj$/i)) {
             filelist.push(fullname);
         }
     });
