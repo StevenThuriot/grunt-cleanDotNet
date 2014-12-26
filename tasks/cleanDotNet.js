@@ -8,11 +8,6 @@
 
 'use strict';
 
-
-function folderStartsWith(stats, value) {
-    return stats.name.slice(0, value.length) == value;
-}
-
 var path = require('path'),
     fs = require('fs'),
     rimraf = require('rimraf'),
@@ -24,9 +19,7 @@ var path = require('path'),
         },
         directory: function (stats) {
             //Skip looking through big and uninteresting folders.
-            return stats.name[0] !== '.' && 
-                stats.name !== 'node_modules' && 
-                !folderStartsWith(stats, '_Resharper');
+            return !(/^\.|^_resharper|^node_modules$/i.test(stats.name));
         }
     };
 
@@ -47,7 +40,7 @@ module.exports = function (grunt) {
             return [bin, obj];
         }).reduce(function (result, dir) {
             return result.concat(dir);
-        }).filter(function (dir) {
+        }, []).filter(function (dir) {
             return fs.existsSync(dir);
         }).forEach(function (dir) {
             console.log('-      Deleting %s', dir);
