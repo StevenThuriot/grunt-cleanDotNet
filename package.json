@@ -38,6 +38,7 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "rimraf": "~2.2.8"
+    "rimraf": "~2.2.8",
+    "fs-walker": "~1.0.0"
   }
 }
